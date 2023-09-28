@@ -146,6 +146,10 @@ $(document).ready(function() {
       while (i < len && lines[i]) {
         text.push(lines[i++]);
       }
+      //Allow for the possibility of a blank line in the subtitle
+      if (!lines[i + 1]) {
+        i++;
+      }
 
       // Join into 1 line, SSA-style linebreaks
       // Strip out other SSA-style tags
