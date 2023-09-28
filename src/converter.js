@@ -144,7 +144,8 @@ $(document).ready(function() {
 
       // Build single line of text from multi-line subtitle in file
       while (i < len && lines[i]) {
-        text.push(lines[i++]);
+        //Replace Speaker_turn with new line (aka force a new paragraph)
+        text.push(lines[i++].replace(/ \[SPEAKER_TURN\]/gi, '\n'));
       }
       //Allow for the possibility of a blank line in the subtitle
       if (!lines[i + 1]) {
@@ -212,11 +213,11 @@ $(document).ready(function() {
         wordStart = wordStart + wordTime;
         var stext = swords[si];
 
-        if (stime - ltime > paraSplitTime * 1000 && paraSplitTime > 0) {
+        if ((stime - ltime > paraSplitTime * 1000 && paraSplitTime > 0) || ltext.indexOf('\n') > 0) {
           //console.log("fullstop? "+stext+" - "+stext.indexOf("."));
           var punctPresent =
             ltext && (ltext.indexOf('.') > 0 || ltext.indexOf('?') > 0 || ltext.indexOf('!') > 0);
-          if (!paraPunct || (paraPunct && punctPresent)) {
+          if (!paraPunct || (paraPunct && punctPresent) || ltext.indexOf('\n') > 0) {
             outputString += '</p><p>';
           }
         }
