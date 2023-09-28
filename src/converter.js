@@ -216,8 +216,8 @@ $(document).ready(function() {
         if ((stime - ltime > paraSplitTime * 1000 && paraSplitTime > 0) || (ltext && ltext.indexOf('\n') > 0)) {
           //console.log("fullstop? "+stext+" - "+stext.indexOf("."));
           var punctPresent =
-            ltext && (ltext.indexOf('.') > 0 || ltext.indexOf('?') > 0 || ltext.indexOf('!') > 0);
-          if (!paraPunct || (paraPunct && punctPresent) || ltext.indexOf('\n') > 0) {
+            ltext && (ltext.indexOf('.') > 0 || ltext.indexOf('?') > 0 || ltext.indexOf('!') > 0 || ltext.indexOf('\n') > 0);
+          if (!paraPunct || (paraPunct && punctPresent)) {
             outputString += '</p><p>';
           }
         }
