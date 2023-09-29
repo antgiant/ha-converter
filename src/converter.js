@@ -113,16 +113,27 @@ $(document).ready(function() {
     lines = data.split(/(?:\r\n|\r|\n)/gm);
     len = lines.length;
 
+    var funky = false;
+    if (lines[1].substr(0, 1) == '[') {
+      funky = true;
+    }
+
     for (i = 0; i < len; i++) {
       sub = {};
       text = [];
 
-      sub.id = parseInt(lines[i++], 10);
+      if (!funky) {
+        sub.id = parseInt(lines[i++], 10);
+      }
 
       // Split on '-->' delimiter, trimming spaces as well
 
       try {
-        time = lines[i++].split(/[\t ]*-->[\t ]*/);
+        if (funky) {
+          time = lines[i].substr(0, lines[i].indexOf(']')).split(/[\t ]*-->[\t ]*/);
+        } else {
+          time = lines[i++].split(/[\t ]*-->[\t ]*/);
+        }
       } catch (e) {
         alert('Warning. Possible issue on line ' + i + ": '" + lines[i] + "'.");
         break;
@@ -144,11 +155,16 @@ $(document).ready(function() {
 
       // Build single line of text from multi-line subtitle in file
       while (i < len && lines[i]) {
-        //Replace Speaker_turn with new line (aka force a new paragraph)
-        text.push(lines[i++].replace(/ \[SPEAKER_TURN\]/gi, '\n'));
+        if (funky) {
+          //Replace Speaker_turn with new line (aka force a new paragraph)
+          text.push(lines[i++].substr(lines[i].indexOf(']') + 2).replace(/ \[SPEAKER_TURN\]/gi, '\n'));
+        } else {
+          //Replace Speaker_turn with new line (aka force a new paragraph)
+          text.push(lines[i++].replace(/ \[SPEAKER_TURN\]/gi, '\n'));
+        }
       }
       //Allow for the possibility of a blank line in the subtitle
-      if (!lines[i + 1]) {
+      if (!funky && !lines[i + 1]) {
         i++;
       }
 
