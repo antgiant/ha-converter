@@ -157,7 +157,8 @@ $(document).ready(function() {
       while (i < len && lines[i]) {
         if (funky) {
           //Replace Speaker_turn with new line (aka force a new paragraph)
-          text.push(lines[i++].substr(lines[i].indexOf(']') + 2).replace(/ \[SPEAKER_TURN\]/gi, '\n'));
+          text.push(lines[i].substr(lines[i].indexOf(']') + 2).replace(/ \[SPEAKER_TURN\]/gi, '\n'));
+          i++;
         } else {
           //Replace Speaker_turn with new line (aka force a new paragraph)
           text.push(lines[i++].replace(/ \[SPEAKER_TURN\]/gi, '\n'));
