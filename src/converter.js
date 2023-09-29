@@ -124,13 +124,15 @@ $(document).ready(function() {
 
       if (!funky) {
         sub.id = parseInt(lines[i++], 10);
+      } else {
+        i++;
       }
 
       // Split on '-->' delimiter, trimming spaces as well
 
       try {
         if (funky) {
-          time = lines[i].substr(0, lines[i].indexOf(']')).split(/[\t ]*-->[\t ]*/);
+          time = lines[i].substr(1, lines[i].indexOf(']')).split(/[\t ]*-->[\t ]*/);
         } else {
           time = lines[i++].split(/[\t ]*-->[\t ]*/);
         }
@@ -165,7 +167,7 @@ $(document).ready(function() {
         }
       }
       //Allow for the possibility of a blank line in the subtitle
-      if (!funky && !lines[i + 1]) {
+      if (!lines[i + 1]) {
         i++;
       }
 
