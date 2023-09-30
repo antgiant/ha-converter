@@ -124,7 +124,7 @@ $(document).ready(function() {
 
       if (!funky) {
         sub.id = parseInt(lines[i++], 10);
-      } else {
+      } else if (i == 0) {
         i++;
       }
 
@@ -160,7 +160,6 @@ $(document).ready(function() {
         if (funky) {
           //Replace Speaker_turn with new line (aka force a new paragraph)
           text.push(lines[i].substr(lines[i].indexOf(']') + 2).replace(/ \[SPEAKER_TURN\]/gi, '\n'));
-          i++;
           break;
         } else {
           //Replace Speaker_turn with new line (aka force a new paragraph)
