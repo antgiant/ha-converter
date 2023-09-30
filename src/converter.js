@@ -132,7 +132,7 @@ $(document).ready(function() {
 
       try {
         if (funky) {
-          time = lines[i].substr(1, lines[i].indexOf(']')).split(/[\t ]*-->[\t ]*/);
+          time = lines[i].substr(1, lines[i].indexOf(']') - 1).replace('.', ',').replace('.', ',').split(/[\t ]*-->[\t ]*/);
         } else {
           time = lines[i++].split(/[\t ]*-->[\t ]*/);
         }
@@ -161,6 +161,7 @@ $(document).ready(function() {
           //Replace Speaker_turn with new line (aka force a new paragraph)
           text.push(lines[i].substr(lines[i].indexOf(']') + 2).replace(/ \[SPEAKER_TURN\]/gi, '\n'));
           i++;
+          break;
         } else {
           //Replace Speaker_turn with new line (aka force a new paragraph)
           text.push(lines[i++].replace(/ \[SPEAKER_TURN\]/gi, '\n'));
